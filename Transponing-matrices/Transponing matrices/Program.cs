@@ -10,10 +10,10 @@ namespace Transponing_matrices
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Transponing matrices");
+            Console.WriteLine("Snail Output");
             Console.WriteLine("Enter your matrix borders");
-            var width = Enter("Enter width your matrix");
-            var height = Enter("Enter width your height");
+            var width = Enter("width your matrix");
+            var height = Enter("width your height");
             int[,] matrix = new int[width, height];
             var Lenght0 = matrix.GetLength(0);
             var Lenght1 = matrix.GetLength(1);
@@ -26,12 +26,19 @@ namespace Transponing_matrices
                         Console.WriteLine("");
                         for (int j = 0; j < Lenght1; j++)
                         {
-                            matrix[i, j] = Convert.ToInt32(Console.ReadLine());
+                            var key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape)
+                            {
+                                throw new OperationCanceledException();
+                            }
+                            var line = Console.ReadLine();
+                            var keyLine = $"{key.KeyChar}{line}";
+                            matrix[i, j] = Convert.ToInt32(keyLine);
                         }
                     }
                     break;
                 }
-                catch (Exception ex)
+                catch (FormatException ex)
                 {
                     Console.WriteLine($"Bed input {ex.Message}, try again");
                 }
