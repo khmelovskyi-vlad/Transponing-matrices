@@ -10,18 +10,37 @@ namespace Transponing_matrices
     {
         static void Main(string[] args)
         {
-            Random rand = new Random();
-            int[,] matrix = {{1,2,3,4,5},
-                            {14,15,16,17,6},
-                            {13,20,19,18,7},
-                            {12,11,10,9,8}};
+            Console.WriteLine("Transponing matrices");
+            Console.WriteLine("Enter your matrix borders");
+            var width = Enter("Enter width your matrix");
+            var height = Enter("Enter width your height");
+            int[,] matrix = new int[width, height];
+            var Lenght0 = matrix.GetLength(0);
+            var Lenght1 = matrix.GetLength(1);
+            while (true)
+            {
+                try
+                {
+                    for (int i = 0; i < Lenght0; i++)
+                    {
+                        Console.WriteLine("");
+                        for (int j = 0; j < Lenght1; j++)
+                        {
+                            matrix[i, j] = Convert.ToInt32(Console.ReadLine());
+                        }
+                    }
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Bed input {ex.Message}, try again");
+                }
+            }
+            Console.WriteLine();
             int position = 0;
             int matrixLenght = 0;
             var realMatrixLenght = matrix.Length;
-            var Lenght0 = matrix.GetLength(0);
-            var Lenght1 = matrix.GetLength(1);
-            Console.WriteLine(matrix.Length);
-            while(true)
+            while (true)
             {
                 for (int i = position; i < Lenght1; i++)
                 {
@@ -56,7 +75,28 @@ namespace Transponing_matrices
                 Lenght1--;
             }
             Console.ReadKey();
-        
+        }
+        static int Enter(string ent)
+        {
+            do
+            {
+                try
+                {
+                    Console.WriteLine($"Enter {ent}");
+                    var key = Console.ReadKey();
+                    if (key.Key == ConsoleKey.Escape)
+                    {
+                        throw new OperationCanceledException();
+                    }
+                    var line = Console.ReadLine();
+                    var keyLine = $"{key.KeyChar}{line}";
+                    return Convert.ToInt32(keyLine);
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Bed input {ex.Message}, Enter again");
+                }
+            } while (true);
         }
     }
 }
