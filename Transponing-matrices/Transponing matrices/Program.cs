@@ -10,39 +10,9 @@ namespace Transponing_matrices
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Snail Output");
-            Console.WriteLine("Enter your matrix borders");
-            var width = Enter("width your matrix");
-            var height = Enter("width your height");
-            int[,] matrix = new int[width, height];
-            var Lenght0 = matrix.GetLength(0);
-            var Lenght1 = matrix.GetLength(1);
-            while (true)
-            {
-                try
-                {
-                    for (int i = 0; i < Lenght0; i++)
-                    {
-                        Console.WriteLine("");
-                        for (int j = 0; j < Lenght1; j++)
-                        {
-                            var key = Console.ReadKey();
-                            if (key.Key == ConsoleKey.Escape)
-                            {
-                                throw new OperationCanceledException();
-                            }
-                            var line = Console.ReadLine();
-                            var keyLine = $"{key.KeyChar}{line}";
-                            matrix[i, j] = Convert.ToInt32(keyLine);
-                        }
-                    }
-                    break;
-                }
-                catch (FormatException ex)
-                {
-                    Console.WriteLine($"Bed input {ex.Message}, try again");
-                }
-            }
+            int[,] matrix;
+            int Lenght0, Lenght1;
+            method(out matrix, out Lenght0, out Lenght1);
             Console.WriteLine();
             int position = 0;
             int matrixLenght = 0;
@@ -83,6 +53,44 @@ namespace Transponing_matrices
             }
             Console.ReadKey();
         }
+
+        private static void method(out int[,] matrix, out int Lenght0, out int Lenght1)
+        {
+            Console.WriteLine("Snail Output");
+            Console.WriteLine("Enter your matrix borders");
+            var width = Enter("width your matrix");
+            var height = Enter("width your height");
+            matrix = new int[width, height];
+            Lenght0 = matrix.GetLength(0);
+            Lenght1 = matrix.GetLength(1);
+            while (true)
+            {
+                try
+                {
+                    for (int i = 0; i < Lenght0; i++)
+                    {
+                        Console.WriteLine("");
+                        for (int j = 0; j < Lenght1; j++)
+                        {
+                            var key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape)
+                            {
+                                throw new OperationCanceledException();
+                            }
+                            var line = Console.ReadLine();
+                            var keyLine = $"{key.KeyChar}{line}";
+                            matrix[i, j] = Convert.ToInt32(keyLine);
+                        }
+                    }
+                    break;
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"Bed input {ex.Message}, try again");
+                }
+            }
+        }
+
         static int Enter(string ent)
         {
             do
@@ -105,5 +113,6 @@ namespace Transponing_matrices
                 }
             } while (true);
         }
+
     }
 }
